@@ -15,8 +15,8 @@ module Driver
 
     def play_game
       Open3.popen3("ruby #{bin_path} #{input_pattern} #{generations}") do |_, stdout, stderr|
+        raise Error.new(stderr.read.chomp) unless stderr.read.chomp.empty?
         self.output = stdout.read.chomp
-        puts stderr.read.chomp
       end
     end
 
