@@ -3,7 +3,7 @@ require_relative "../drivers/cli"
 require_relative "../specifications/play_game"
 
 describe "Conway" do
-  it "should play" do
+  it "should play with block pattern" do
     input_pattern = File.expand_path("../testdata/block.rle", __dir__)
     bin_path = File.expand_path("../bin/conway", __dir__)
 
