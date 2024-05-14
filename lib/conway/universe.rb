@@ -20,7 +20,9 @@ module Conway
           result.push(Array.new(width).map { |_| "." })
         end
 
-        result[0][0] = seed_pattern
+        seed_pattern.each do |cell|
+          result[cell[0]][cell[1]] = "#"
+        end
 
         result
       end
