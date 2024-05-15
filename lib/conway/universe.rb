@@ -8,13 +8,20 @@ module Conway
     end
 
     def tick
+      cells_to_kill = []
+
+
       grid.each_with_index do |row, row_idx|
         row.each_with_index do |cell, col_idx|
           if cell != "."
             live_neighbours_count = count_live_neighbours(row_idx, col_idx)
-            grid[row_idx][col_idx] = DEAD_CELL if live_neighbours_count < 2
+            cells_to_kill.push([row_idx, col_idx]) if live_neighbours_count < 2
           end
         end
+      end
+
+      cells_to_kill.each do |cell|
+        grid[cell[0]][cell[1]] = DEAD_CELL
       end
     end
 
