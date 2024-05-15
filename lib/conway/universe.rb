@@ -10,10 +10,9 @@ module Conway
     def tick
       cells_to_kill = []
 
-
       grid.each_with_index do |row, row_idx|
         row.each_with_index do |cell, col_idx|
-          if cell != "."
+          if live_cell?(row_idx, col_idx)
             live_neighbours_count = count_live_neighbours(row_idx, col_idx)
             cells_to_kill.push([row_idx, col_idx]) if live_neighbours_count < 2 || live_neighbours_count > 3
           end
