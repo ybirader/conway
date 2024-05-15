@@ -14,11 +14,8 @@ module Conway
       grid.each_with_index do |row, row_idx|
         row.each_with_index do |cell, col_idx|
           live_neighbours_count = count_live_neighbours(row_idx, col_idx)
-          if live_cell?(row_idx, col_idx)
-            cells_to_kill.push([row_idx, col_idx]) if live_neighbours_count < 2 || live_neighbours_count > 3
-          else
-            cells_to_revive.push([row_idx, col_idx]) if live_neighbours_count == 3
-          end
+          cells_to_kill.push([row_idx, col_idx]) if live_cell?(row_idx, col_idx) && live_neighbours_count < 2 || live_neighbours_count > 3
+          cells_to_revive.push([row_idx, col_idx]) if dead_cell?(row_idx, col_idx) && live_neighbours_count == 3
         end
       end
 
