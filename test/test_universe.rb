@@ -33,5 +33,20 @@ describe "Universe" do
       UNIVERSE
       )
     end
+
+    it "should keep any live cell with two or three live neighbours alive" do
+      universe = Conway::Universe.new(6, 5, [[1, 1], [1, 2], [2, 1], [2, 2]])
+
+      universe.tick
+
+      expect(universe.to_s).must_equal(<<~UNIVERSE
+      ......
+      .##...
+      .##...
+      ......
+      ......
+      UNIVERSE
+      )
+    end
   end
 end
