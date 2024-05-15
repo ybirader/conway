@@ -20,7 +20,7 @@ describe "Universe" do
 
   describe "tick" do
     it "should kill any live cell with fewer than two live neighbours" do
-      universe = Conway::Universe.new(6, 5, [1, 1])
+      universe = Conway::Universe.new(6, 5, [[1, 1]])
 
       universe.tick
 
