@@ -9,18 +9,25 @@ module Conway
 
     def tick
       cells_to_kill = []
+      cells_to_revive = []
 
       grid.each_with_index do |row, row_idx|
         row.each_with_index do |cell, col_idx|
+          live_neighbours_count = count_live_neighbours(row_idx, col_idx)
           if live_cell?(row_idx, col_idx)
-            live_neighbours_count = count_live_neighbours(row_idx, col_idx)
             cells_to_kill.push([row_idx, col_idx]) if live_neighbours_count < 2 || live_neighbours_count > 3
+          else
+            cells_to_revive.push([row_idx, col_idx]) if live_neighbours_count == 3
           end
         end
       end
 
       cells_to_kill.each do |cell|
         grid[cell[0]][cell[1]] = DEAD_CELL
+      end
+
+      cells_to_revive.each do |cell|
+        grid[cell[0]][cell[1]] = LIVE_CELL
       end
     end
 
