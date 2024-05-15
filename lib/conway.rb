@@ -5,5 +5,5 @@ require_relative "conway/cli"
 
 module Conway
   class Error < StandardError; end
-  class UnknownFileError < StandardError; end
+  class InvalidFileError < StandardError; end
 end
