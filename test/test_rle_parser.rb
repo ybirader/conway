@@ -9,4 +9,8 @@ describe "RLE Parser" do
 
     expect(content).must_equal(want)
   end
+
+  it "should raise an unknown file exception for an invalid path" do
+    expect(-> { Conway::RleParser.read_file("hello") }).must_raise(Conway::UnknownFileError)
+  end
 end
