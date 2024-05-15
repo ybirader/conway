@@ -48,5 +48,20 @@ describe "Universe" do
       UNIVERSE
       )
     end
+
+    it "should kill any live cell with more than three neighbours" do
+      universe = Conway::Universe.new(6, 5, [[0, 0], [1, 1], [1, 2], [2, 1], [2, 2]])
+
+      universe.tick
+
+      expect(universe.to_s).must_equal(<<~UNIVERSE
+      ......
+      ..#...
+      .##...
+      ......
+      ......
+      UNIVERSE
+      )
+    end
   end
 end
