@@ -30,24 +30,22 @@ module Conway
     end
 
     def parse
-      pattern = content.split("\n").select { |line| !line.start_with?(COMMENT_DELIMTER) && line.chomp.end_with?(PATTERN_ENDING) }
+      pattern = extract_pattern
       return Conway::Pattern.new if pattern.empty?
-      rows = pattern.first.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
-      result = []
-
-      rows.each_with_index do |row, row_idx|
-        row.each_char.with_index do |cell, col_idx|
-          if cell == "o"
-            result.push([row_idx, col_idx])
-          end
-        end
-      end
-
-      Conway::Pattern.new(result)
+      rows = expand_pattern(pattern)
+      Conway::Pattern.new(get_active_cells(rows))
     end
 
     private
       attr_reader :content
+
+      def extract_pattern
+        content.split("\n").select { |line| !line.start_with?(COMMENT_DELIMTER) && line.chomp.end_with?(PATTERN_ENDING) }.first || ""
+      end
+
+      def expand_pattern(pattern)
+        pattern.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
+      end
 
       def expand(row)
         count = ""
@@ -63,6 +61,18 @@ module Conway
           end
         end
 
+        result
+      end
+
+      def get_active_cells(rows)
+        result = []
+        rows.each_with_index do |row, row_idx|
+          row.each_char.with_index do |cell, col_idx|
+            if cell == "o"
+              result.push([row_idx, col_idx])
+            end
+          end
+        end
         result
       end
 
