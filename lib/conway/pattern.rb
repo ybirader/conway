@@ -10,6 +10,10 @@ module Conway
       @cells = Set.new(live_cells)
     end
 
+    def include?(cell)
+      @cells.include?(cell)
+    end
+
     def cells
       @cells.to_a
     end
