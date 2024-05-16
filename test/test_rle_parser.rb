@@ -7,15 +7,15 @@ describe "RLE Parser" do
   glider_file = File.expand_path("../testdata/glider.rle", __dir__)
 
   tests = [
-    { input_type: :file, input: block_file, want: Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])},
-    { input_type: :file, input: blinker_file, want: Set.new([[0, 0], [0, 1], [0, 2]])},
-    { input_type: :file, input: glider_file, want: Set.new([[0, 1], [1, 2], [2, 0], [2, 1], [2, 2]])},
-    { input_type: :memory, input: "11o!", want: Set.new([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10]])},
-    { input_type: :memory, input: "# hello!", want: Set.new },
+    { name: "should parse 1d patterns", input_type: :file, input: blinker_file, want: Set.new([[0, 0], [0, 1], [0, 2]])},
+    { name: "should parse 2d patterns", input_type: :file, input: block_file, want: Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])},
+    { name: "should parse 3d patterns", input_type: :file, input: glider_file, want: Set.new([[0, 1], [1, 2], [2, 0], [2, 1], [2, 2]])},
+    { name: "should parse multi-digit encodings", input_type: :memory, input: "11o!", want: Set.new([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10]])},
+    { name: "should ignore comments", input_type: :memory, input: "# hello!", want: Set.new },
   ]
 
   tests.each do |test|
-    it "should parse rle pattern file into a set of active cells relative to (0, 0), ignoring comments" do
+    it test[:name] do
       case test[:input_type]
       when :file then expect(Conway::RleParser.parse_file(test[:input])).must_equal(test[:want])
       when :memory then expect(Conway::RleParser.parse(test[:input])).must_equal(test[:want])
