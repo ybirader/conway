@@ -3,6 +3,8 @@ module Conway
     RLE_EXTENSION = ".rle"
     ROW_DELIMITER = "$"
     PATTERN_ENDING = "!"
+    COMMENT_DELIMTER = "#"
+    LIVE_CELL = "o"
 
     class << self
 
@@ -12,7 +14,7 @@ module Conway
       end
 
       def parse(content)
-        pattern = content.split("\n").select { |line| !line.start_with?("#") && line.chomp.end_with?(PATTERN_ENDING) }
+        pattern = content.split("\n").select { |line| !line.start_with?(COMMENT_DELIMTER) && line.chomp.end_with?(PATTERN_ENDING) }
         return Set.new if pattern.empty?
         rows = pattern.first.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
         result = Set.new
@@ -44,7 +46,7 @@ module Conway
           result = ""
 
           row.each_char do |char|
-            if char.match?(/^\d+$/)
+            if numeric?(char)
               count += char
             else
               count = "1" if count.empty?
@@ -54,6 +56,14 @@ module Conway
           end
 
           result
+        end
+
+        def live_cell?(cell)
+          cell == LIVE_CELL
+        end
+
+        def numeric?(char)
+          char.match?(/^\d+$/)
         end
     end
   end
