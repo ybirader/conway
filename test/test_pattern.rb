@@ -18,6 +18,8 @@ describe "Pattern" do
     block_file = File.expand_path("../testdata/block.rle", __dir__)
     pattern = Conway::Pattern.from_rle(block_file)
 
-    expect(pattern.cells).must_equal([[0, 0], [0, 1], [1, 0], [1, 1]])
+    [[0, 0], [0, 1], [1, 0], [1, 1]].each do |expected_cell|
+      expect(pattern).must_include(expected_cell)
+    end
   end
 end
