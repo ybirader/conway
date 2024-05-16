@@ -1,5 +1,3 @@
-require "conway/pattern"
-
 module Conway
   class RleParser
     RLE_EXTENSION = ".rle"
@@ -31,9 +29,9 @@ module Conway
 
     def parse
       pattern = extract_pattern
-      return Conway::Pattern.new if pattern.empty?
+      return [] if pattern.empty?
       rows = expand_pattern(pattern)
-      Conway::Pattern.new(get_active_cells(rows))
+      get_active_cells(rows)
     end
 
     private
