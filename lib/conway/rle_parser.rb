@@ -6,8 +6,12 @@ module Conway
 
     class << self
 
-      def parse(path)
+      def parse_file(path)
         content = read_file(path)
+        parse(content)
+      end
+
+      def parse(content)
         pattern = content.split("\n").select { |line| line.chomp.end_with?(PATTERN_ENDING) }.first
         rows = pattern.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
 
