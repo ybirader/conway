@@ -48,12 +48,16 @@ module Conway
       def initialize_universe(width, height, seed_pattern)
         result = []
 
-        height.times do
-          result.push(Array.new(width).map { |_| DEAD_CELL })
-        end
-
-        seed_pattern.each do |cell|
-          result[cell[0]][cell[1]] = LIVE_CELL
+        height.times do |row_idx|
+          row = []
+          width.times do |col_idx|
+            if seed_pattern.include?([row_idx, col_idx])
+              row.push(LIVE_CELL)
+            else
+              row.push(DEAD_CELL)
+            end
+          end
+          result.push(row)
         end
 
         result
