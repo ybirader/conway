@@ -3,15 +3,11 @@ require "conway/rle_parser"
 
 describe "RLE Parser" do
   test_file = File.expand_path("../testdata/block.rle", __dir__)
-
-  it "should ignore comment lines" do
+  it "should parse rle pattern file into a set of active cells relative to (0, 0), ignoring comments" do
     content = Conway::RleParser.parse(test_file)
-    want = <<~CONTENT
-    x = 2, y = 2, rule = B3/S23\r
-    2o$2o!
-    CONTENT
+    want = Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])
 
-    expect(content.chomp).must_equal(want.chomp)
+    expect(content).must_equal(want)
   end
   it "should raise an invalid file exception for an invalid path" do
     expect(-> { Conway::RleParser.parse("hello.rle") }).must_raise(Conway::InvalidFileError)
