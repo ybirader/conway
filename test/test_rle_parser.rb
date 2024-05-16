@@ -2,10 +2,12 @@ require "test_helper"
 require "conway/rle_parser"
 
 describe "RLE Parser" do
-  test_file = File.expand_path("../testdata/block.rle", __dir__)
+  block_file = File.expand_path("../testdata/block.rle", __dir__)
+  blinker_file = File.expand_path("../testdata/blinker.rle", __dir__)
 
   tests = [
-    { input_file: test_file, want: Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])}
+    { input_file: block_file, want: Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])},
+    { input_file: blinker_file, want: Set.new([[0, 0], [0, 1], [0, 2]])},
   ]
 
   tests.each do |test|
