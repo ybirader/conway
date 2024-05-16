@@ -14,8 +14,10 @@ module Conway
         result = Set.new
 
         rows.each_with_index do |row, row_idx|
-          row.each_char.with_index do |_, col_idx|
-            result.add([row_idx, col_idx])
+          row.each_char.with_index do |cell, col_idx|
+            if cell == "o"
+              result.add([row_idx, col_idx])
+            end
           end
         end
 
@@ -35,13 +37,19 @@ module Conway
 
         def expand(row)
           count = ""
-          cells = ""
+          result = ""
 
           row.each_char do |char|
-            char.match?(/^\d+$/) ? count += char : cells += char
+            if char.match?(/^\d+$/)
+              count += char
+            else
+              count = "1" if count.empty?
+              result += char * count.to_i
+              count = ""
+            end
           end
 
-          cells * count.to_i
+          result
         end
     end
   end
