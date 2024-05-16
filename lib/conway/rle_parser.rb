@@ -1,3 +1,5 @@
+require "conway/pattern"
+
 module Conway
   class RleParser
     RLE_EXTENSION = ".rle"
@@ -29,19 +31,19 @@ module Conway
 
     def parse
       pattern = content.split("\n").select { |line| !line.start_with?(COMMENT_DELIMTER) && line.chomp.end_with?(PATTERN_ENDING) }
-      return Set.new if pattern.empty?
+      return Conway::Pattern.new if pattern.empty?
       rows = pattern.first.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
-      result = Set.new
+      result = []
 
       rows.each_with_index do |row, row_idx|
         row.each_char.with_index do |cell, col_idx|
           if cell == "o"
-            result.add([row_idx, col_idx])
+            result.push([row_idx, col_idx])
           end
         end
       end
 
-      result
+      Conway::Pattern.new(result)
     end
 
     private
