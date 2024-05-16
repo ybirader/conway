@@ -13,4 +13,11 @@ describe "Pattern" do
 
     expect(pattern_one).must_equal(pattern_two)
   end
+
+  it "should create pattern from rle file" do
+    block_file = File.expand_path("../testdata/block.rle", __dir__)
+    pattern = Conway::Pattern.from_rle(block_file)
+
+    expect(pattern.cells).must_equal([[0, 0], [0, 1], [1, 0], [1, 1]])
+  end
 end
