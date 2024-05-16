@@ -7,14 +7,18 @@ describe "RLE Parser" do
   glider_file = File.expand_path("../testdata/glider.rle", __dir__)
 
   tests = [
-    { input_file: block_file, want: Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])},
-    { input_file: blinker_file, want: Set.new([[0, 0], [0, 1], [0, 2]])},
-    { input_file: glider_file, want: Set.new([[0, 1], [1, 2], [2, 0], [2, 1], [2, 2]])},
+    { input_type: :file, input: block_file, want: Set.new([[0, 0], [0, 1], [1, 0], [1, 1]])},
+    { input_type: :file, input: blinker_file, want: Set.new([[0, 0], [0, 1], [0, 2]])},
+    { input_type: :file, input: glider_file, want: Set.new([[0, 1], [1, 2], [2, 0], [2, 1], [2, 2]])},
+    { input_type: :memory, input: "11o!", want: Set.new([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10]])},
   ]
 
   tests.each do |test|
     it "should parse rle pattern file into a set of active cells relative to (0, 0), ignoring comments" do
-      expect(Conway::RleParser.parse_file(test[:input_file])).must_equal(test[:want])
+      case test[:input_type]
+      when :file then expect(Conway::RleParser.parse_file(test[:input])).must_equal(test[:want])
+      when :memory then expect(Conway::RleParser.parse(test[:input])).must_equal(test[:want])
+      end
     end
   end
   it "should raise an invalid file exception for an invalid path" do
