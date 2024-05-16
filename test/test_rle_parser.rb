@@ -11,6 +11,7 @@ describe "RLE Parser" do
     { input_type: :file, input: blinker_file, want: Set.new([[0, 0], [0, 1], [0, 2]])},
     { input_type: :file, input: glider_file, want: Set.new([[0, 1], [1, 2], [2, 0], [2, 1], [2, 2]])},
     { input_type: :memory, input: "11o!", want: Set.new([[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10]])},
+    { input_type: :memory, input: "# hello!", want: Set.new },
   ]
 
   tests.each do |test|

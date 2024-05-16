@@ -12,9 +12,9 @@ module Conway
       end
 
       def parse(content)
-        pattern = content.split("\n").select { |line| line.chomp.end_with?(PATTERN_ENDING) }.first
-        rows = pattern.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
-
+        pattern = content.split("\n").select { |line| !line.start_with?("#") && line.chomp.end_with?(PATTERN_ENDING) }
+        return Set.new if pattern.empty?
+        rows = pattern.first.chomp(PATTERN_ENDING).split(ROW_DELIMITER).map { |row| expand(row) }
         result = Set.new
 
         rows.each_with_index do |row, row_idx|
