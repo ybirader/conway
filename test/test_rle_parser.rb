@@ -18,7 +18,7 @@ describe "RLE Parser" do
     it test[:name] do
       case test[:input_type]
       when :file then expect(Conway::RleParser.parse_file(test[:input])).must_equal(test[:want])
-      when :memory then expect(Conway::RleParser.parse(test[:input])).must_equal(test[:want])
+      when :memory then expect(Conway::RleParser.new(test[:input]).parse).must_equal(test[:want])
       end
     end
   end
