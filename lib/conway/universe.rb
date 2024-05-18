@@ -24,6 +24,10 @@ module Conway
       end
     end
 
+    def pattern
+      @pattern.clone
+    end
+
     def to_s
       result = ""
       height.times do |row|
@@ -38,7 +42,7 @@ module Conway
 
     private
       attr_reader :width, :height
-      attr_accessor :pattern
+      attr_writer :pattern
 
       def live_neighbours_counter
         result = Hash.new(0)

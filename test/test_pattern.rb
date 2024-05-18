@@ -14,6 +14,15 @@ describe "Pattern" do
     expect(pattern_one).must_equal(pattern_two)
   end
 
+  it "should return (shallow) clone" do
+    # only shallow clone is required as internal state is private
+    pattern = Conway::Pattern.new([[1, 2]])
+    pattern_clone = pattern.clone
+
+    expect(pattern_clone).wont_be_same_as(pattern)
+    expect(pattern_clone).must_equal(pattern)
+  end
+
   it "should create pattern from rle file" do
     block_file = File.expand_path("../testdata/block.rle", __dir__)
     pattern = Conway::Pattern.from_rle(block_file)

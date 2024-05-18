@@ -3,7 +3,6 @@ require "conway/universe"
 module Conway
   class GameOfLife
     def initialize(seed_pattern, generations)
-      @seed_pattern = seed_pattern
       @generations = generations
       @universe = Universe.new(6, 5, seed_pattern)
     end
@@ -12,11 +11,15 @@ module Conway
       generations.times { universe.tick }
     end
 
+    def pattern
+      universe.pattern
+    end
+
     def to_s
       universe.to_s
     end
 
     private
-      attr_reader :seed_pattern, :generations, :universe
+      attr_reader :generations, :universe
   end
 end
