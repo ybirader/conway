@@ -22,4 +22,14 @@ describe "Pattern" do
       expect(pattern).must_include(expected_cell)
     end
   end
+
+  tests = [
+    { name: "should serialize 1d pattern", pattern: Conway::Pattern.new([[0, 0], [0, 1]]), want: "2o!"},
+  ]
+
+  tests.each do |test|
+    it test[:name] do
+      expect(test[:pattern].to_rle).must_equal(test[:want])
+    end
+  end
 end
