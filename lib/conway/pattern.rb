@@ -14,11 +14,15 @@ module Conway
       cells.include?(cell)
     end
 
+    def each(&block)
+      cells.each(&block)
+    end
+
     def ==(other)
       cells == other.cells
     end
 
-    protected
-      attr_reader :cells
+    attr_reader :cells
+    # protected
   end
 end

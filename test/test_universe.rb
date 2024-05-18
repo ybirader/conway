@@ -18,7 +18,7 @@ describe "Universe" do
     )
   end
 
-  it "should show cells from any includable" do
+  it "should show cells from any enumerable" do
     universe = Conway::Universe.new(6, 5, Conway::Pattern.new([[0, 0]]))
 
     expect(universe.to_s).must_equal(<<~UNIVERSE
