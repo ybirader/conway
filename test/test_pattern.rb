@@ -25,6 +25,7 @@ describe "Pattern" do
 
   tests = [
     { name: "should serialize 1d pattern", pattern: Conway::Pattern.new([[0, 0], [0, 1]]), want: "2o!"},
+    { name: "should serialize 2d pattern", pattern: Conway::Pattern.new([[0, 0], [0, 1], [1, 0], [1, 1]]), want: "2o$2o!"},
   ]
 
   tests.each do |test|

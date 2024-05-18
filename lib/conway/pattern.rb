@@ -26,15 +26,17 @@ module Conway
       min_row_cell, max_row_cell = cells.minmax { |a, b| a[0] <=> b[0] }
       min_col_cell, max_col_cell = cells.minmax { |a, b| a[1] <=> b[1] }
 
-      result = ""
+      result = []
 
       min_row_cell[0].upto(max_row_cell[0]) do |row|
+        current = ""
         min_col_cell[1].upto(max_col_cell[1]) do |col|
-          result += include?([row, col]) ? "o" : "b"
+          current += include?([row, col]) ? "o" : "b"
         end
+        result.push(encode(current))
       end
 
-      encode(result) + "!"
+      result.join("$") + "!"
     end
 
     protected
