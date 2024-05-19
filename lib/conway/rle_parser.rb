@@ -1,10 +1,8 @@
+require "conway/constants"
+
 module Conway
   class RleParser
-    RLE_EXTENSION = ".rle"
-    ROW_DELIMITER = "$"
-    PATTERN_ENDING = "!"
-    COMMENT_DELIMTER = "#"
-    LIVE_CELL = "o"
+    include Conway::Constants::Rle
 
     class << self
       def parse_file(path)
@@ -13,7 +11,7 @@ module Conway
 
       private
         def read_file(path)
-          raise Conway::InvalidFileError.new("must be a valid .rle file. #{path} is not.") unless File.extname(path) == RLE_EXTENSION
+          raise Conway::InvalidFileError.new("must be a valid .rle file. #{path} is not.") unless File.extname(path) == Conway::Constants::Rle::RLE_EXTENSION
 
           begin
             File.read(path)

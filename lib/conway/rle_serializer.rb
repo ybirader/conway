@@ -1,5 +1,9 @@
+require "conway/constants"
+
 module Conway
   class RleSerializer
+    include Conway::Constants::Rle
+
     def self.serialize(cells)
       new(cells).serialize
     end
@@ -17,12 +21,12 @@ module Conway
       min_row_cell.upto(max_row_cell) do |row_idx|
         row = ""
         min_col_cell.upto(max_col_cell) do |col_idx|
-          row += cells.include?([row_idx, col_idx]) ? "o" : "b"
+          row += cells.include?([row_idx, col_idx]) ? LIVE_CELL : DEAD_CELL
         end
         result.push(encode(row))
       end
 
-      result.join("$") + "!"
+      result.join(ROW_DELIMITER) + PATTERN_ENDING
     end
 
     private
