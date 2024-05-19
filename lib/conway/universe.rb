@@ -17,13 +17,6 @@ module Conway
       self.pattern = Conway::Pattern.new(new_live_cells)
     end
 
-    def neighbours(cell)
-      directions = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [-1, 1], [1, -1]]
-      directions.map do |direction|
-        [row(cell)+row(direction), col(cell)+col(direction)]
-      end
-    end
-
     def pattern
       @pattern.clone
     end
@@ -33,7 +26,7 @@ module Conway
       height.times do |row|
         current = ""
         width.times do |col|
-          current += pattern.include?([row, col]) ? Conway::Universe::LIVE_CELL : Conway::Universe::DEAD_CELL
+          current += pattern.include?([row, col]) ? LIVE_CELL : DEAD_CELL
         end
         result += "#{current}\n"
       end
@@ -53,6 +46,13 @@ module Conway
         end
 
         result
+      end
+
+      def neighbours(cell)
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [-1, 1], [1, -1]]
+        directions.map do |direction|
+          [row(cell)+row(direction), col(cell)+col(direction)]
+        end
       end
 
       def row(cell)

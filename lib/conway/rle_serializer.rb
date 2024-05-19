@@ -13,8 +13,8 @@ module Conway
     end
 
     def serialize
-      min_row_cell, max_row_cell = cells.minmax { |a, b| a[0] <=> b[0] }.map { |cell| cell[0] }
-      min_col_cell, max_col_cell = cells.minmax { |a, b| a[1] <=> b[1] }.map { |cell| cell[1] }
+      min_row_cell, max_row_cell = row_boundaries
+      min_col_cell, max_col_cell = col_boundaries
 
       result = []
 
@@ -31,6 +31,14 @@ module Conway
 
     private
       attr_reader :cells
+
+      def row_boundaries
+        cells.minmax { |a, b| a[0] <=> b[0] }.map { |cell| cell[0] }
+      end
+
+      def col_boundaries
+        cells.minmax { |a, b| a[1] <=> b[1] }.map { |cell| cell[1] }
+      end
 
       def encode(pattern_string)
         result = ""
