@@ -11,13 +11,17 @@ module Conway
 
       private
         def read_file(path)
-          raise Conway::InvalidFileError.new("must be a valid .rle file. #{path} is not.") unless File.extname(path) == Conway::Constants::Rle::RLE_EXTENSION
+          raise Conway::InvalidFileError.new("must be a valid .rle file. #{path} is not.") unless rle_file?(path)
 
           begin
             File.read(path)
           rescue Errno::ENOENT
             raise Conway::InvalidFileError.new("must be a valid .rle file. #{path} is not.")
           end
+        end
+
+        def rle_file?(path)
+          File.extname(path) == Conway::Constants::Rle::RLE_EXTENSION
         end
     end
 
