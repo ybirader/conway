@@ -12,11 +12,10 @@ describe "Conway" do
   end
 
   it "should play with blinker pattern" do
-    skip "todo"
     input_pattern = File.expand_path("../testdata/blinker.rle", __dir__)
     bin_path = File.expand_path("../bin/conway", __dir__)
 
-    driver = Driver::CLI.new(input_pattern, 2, "1o$1o$1o!\n", bin_path)
+    driver = Driver::CLI.new(input_pattern, 1, "o$o$o!\n", bin_path)
     Specification::PlayGame.new(driver).start
   end
 end
