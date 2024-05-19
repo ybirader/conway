@@ -72,7 +72,7 @@ module Conway
       end
 
       def survives?(cell, live_neighbours_count)
-        live_cell?(cell) && [2, 3].include?(live_neighbours_count)
+        live_cell?(cell) && (live_neighbours_count == 2 || live_neighbours_count == 3)
       end
 
       def live_cell?(cell)
