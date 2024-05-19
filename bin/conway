@@ -3,4 +3,4 @@
 
 require "conway"
 
-Conway::CLI.new.start(ARGV)
+Conway::CLI.new(ARGV).start

@@ -3,9 +3,10 @@ require "conway/pattern"
 
 module Conway
   class CLI
-    def initialize(args, output = $stdin)
+    def initialize(args, output = $stdout)
       @output = output
-      @seed_pattern_path, @generations = args
+      @seed_pattern_path = args[0]
+      @generations = args[1].to_i
     end
 
     def start
